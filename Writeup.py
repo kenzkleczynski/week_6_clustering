@@ -46,45 +46,60 @@ plt.show()
 
 # %% Reflection for non-tech audience
 
-#Outline:
+# As VP of Analytics for the Wizards, I am helping head scout Mr. Rooney recruit the best 
+# players for the best value through data science. The goal is to find the best skill level 
+# performers that are underpaid in order to recruit them for cheap and build a playoff ready 
+# team without overspending.
 
-#What's the problem? — Wizards are bad, need better players, can't overspend
-#As VP of anylitcs for the Wizards, I am helping head couter Mr. Rooney recuity the best players for the best value though data science. 
-#the goal is to research for teh best skill level perfromers that are underpaid in order to rectuit them for cheap and build a playoff ready team
-#without overpsending.
+# To complete this project I had two initial data sets. One contained information on every NBA 
+# player, their team, and their salary. The other listed every NBA player's performance stats. 
+# I merged these data sets by player name through an inner merge that only kept players that 
+# were in both data sets, so that I had a complete data set with all the information I needed. 
+# After merging, I cleaned the data by dropping duplicates after noticing a pattern in the teams 
+# column. When a player transferred teams, there was a separate row that listed them as "2TM" 
+# and combined their stats into a total. I kept that row and dropped the duplicates. I also 
+# dropped columns with mostly missing data, rows with missing salary data, and the percentage 
+# columns for the same reason.
 
-#What data did you use? — two datasets, stats and salaries, merged them together
-# To compelte this project I had two intially data sets. One data set contrin infmoation of every NBA player, their team, and theie salary. Another data set listed every NBA players player inforation adn performacen stats.
-# I merged these data sets by the player name throuhg an inner merge that only kept players that were in both data sets, this way I had a complete data set with all the information I needed to do my analysis.
-# After meiging the data sets I cleaned the data by dropping duplicates after noting a pattern in teh teams column. When a player tranfered teams and had two teamsn and stats assocaited with them there was a seperate row that listen them as "2TM" and added ther stats to get a total.
-#Additonally, i dropped other duplicate rows, columns with majority mssiing data, and some rows with missiing salary data. I also dropped the percentage columns because they had a lot of missing data.
+# In order to see patterns in this data, I used a method called K-Means Clustering. This method 
+# groups players together based on their similarities across chosen features. While you don't 
+# necessarily need to know the math behind it, the general idea is that it's calculated on 
+# distances and averages between points. This is why it's important to scale the data to one 
+# universal scale first, so that the distances aren't calculated on skewed scales that could 
+# interfere with how the groups are formed.
 
+# In order to visualize the clustering I had to choose two features to plot on the x and y axis 
+# of a scatter plot. I wanted to choose features with a high correlation to salary so that the 
+# cluster groups could be distinctly defined, and also a high variance, meaning the data spans 
+# a wide range of numbers so we can see real differences between players. I calculated the 
+# variance of important features like points scored, minutes played, and assists, then plotted 
+# a correlation matrix to see how each feature related to salary. I found that points and assists 
+# had the highest correlation with salary and also had high variance, so I chose those two as 
+# my x and y axis.
 
-#How does clustering work? — explain it simply, grouping similar players together without knowing the answer ahead of time
-#in order to see patterns in this unsupervised data, I used a metho called k-means clustering. This method groups the players together
-# by there similarites in traits from the chosen features. While you dont nedecaly ned to know that math behind it, a genrel thing to keep in mind
-# is that its caludated on ditance and averages of the points. This is why it is importnat to scale the data to be on one univeral scale, 0-1, so that the 
-# distances are not caualuced on skewed scales that may interfiew with the way distances between points are portrayed. 
+# My target variable, the thing I am trying to draw insights from, is salary. To find the best 
+# value players I set the color of the points to represent salary. The darker the color the 
+# cheaper the player, and the more teal they get the more expensive they are. The goal is to 
+# find the dark colored points in the top right of the graph, which shows players with high 
+# performing stats that aren't getting paid a lot. I clustered the data into 3 groups based on 
+# an elbow plot, which is a method to determine the right number of clusters for your data. 
+# Cluster 0 is the worst performing players with low points and assists. Cluster 1 is the mid 
+# tier players with a wide range but generally average stats. Cluster 2 is the best performers 
+# with high points and assists. To find the best value players I looked specifically at cluster 2 
+# and filtered for the ones with the darkest color, meaning the cheapest salary.
 
-#Why PTS and AST? — correlated most with salary, good indicators of overall performance
-# In order for my cluserting to be shown I have to choose two features to plot on the x and y axis of a scatterplot that will best show what it means to be a player.
-# i wanted to choose the most optimal feature that have a highcoorelation so that cluster groups can be distinclvly define. As well thought there needs to be a high varience, which means the data in teh feature is wide and spans over alot of numbers so we can see change.
-#inorder to calcauted the varince of imporntat feauterd i defined like points scored, minutes played, assitsts, and a few more columns. I think plotts the corelation on a coorelation matrix 
-# in order to see the feathers corelaiton with each other but also with salary.
-# i found that points and assists had the highest correlation with salary, and also had a high varience, so I chose those two features to plot on the x and y axis of my scatterplot.
+# After looking at the stats and the graph, I suggest that Mr. Rooney recruit Russell Westbrook 
+# and Isaiah Collier as my top two choices. Westbrook put up 796 points and 342 assists while 
+# only making $2.3M, and Collier had the highest assists in the entire group at 356 with 499 
+# points and is only making $2.6M making him a great cheap playmaker. This way Mr. Rooney can 
+# save money to spend on other players while also having two high performing players that can 
+# help the team win games and make the playoffs. In terms of who to avoid, I suggest Mr. Rooney 
+# stay away from Bradley Beal and Anthony Davis. Beal is making $59M and only put up 49 points 
+# and 10 assists all season, and Davis is making $54M with only 407 points and 56 assists.
 
-#What did the clusters show? — describe the three groups in plain english, best/mid/worst performers
-# my target vriable, the thing i am trying to draw insights from, is salary. 
-# so to find the best players I changed the color, hue, of the points to represent the salres they make. The darker the color the cheaper they are adn the more teal
-#they getthe more expesive they are. The point is to find the dark color points that are in the top right side of the graph. This shows the players with high permoring stats, but are not getting paid alot.
-# i clusted my data into 3 differet cluster. Cluster group 0 its the worst performing players, they have low points and low assists. Cluster group 1 is the mid performing players, they have a wide range of points and assists but are generally in the middle. Cluster group 2 is the best performing players, they have high points and high assists.
-# therefor to find the best players i looked spesficlly at clsuter group 2, the best performing players, and looked for the ones that had a dark color, meaning they were cheap, and had high points and assists.
-# i chose to have 3 cluster groups ebucase after perofrming an elbow plot, which is a method to determn whats the right number of clusters to group you uqniue data from to take into account busy and noicy spots.
+# To conclude, clustering helped me identify where to look for the best players by giving me a 
+# more detailed and specific grouping that simply sorting a long spreadsheet might miss. It also 
+# produced a clean visual that makes it easy to present to other stakeholders and decision makers. 
+# In the future this method could also be used to explore additional features like play time to 
+# add even more depth to the analysis.
 
-# after looking at the stats and the graph, i suggst that Mr.Rooney should recruit Russell Westbrook and Isaiah Collier as my top two choicese beucase they had high stats with ____fill in with real number data___.
-# this wasy Mr.rooney can save money from teh team to spend on other players, and also have two high performing players that can help the team win games and make the playoffs.
-#In terms of who to avoid, I suggest that Mr.Rooney stay away from Bradley Beal and Anthony Davis. They are most very expesntive adn for not good reasons as they underperform bsaed on tehre stats of ___fill in with real num data____.
-
-#to conclude, clsutering helped me identify where to look for the best plaeyrs by givieng me a more detailed and spesific groupgina dn set of payers i can sort and filter through to fine the stars that smiply sorting a long speadsheet might miss.
-# it also provided a neat and clean visual that can make it easy to show other stakeholders and deicison makers.
-#in the fture this method can also give an easy way to play around with different features additonly to see things like play time and such. 
